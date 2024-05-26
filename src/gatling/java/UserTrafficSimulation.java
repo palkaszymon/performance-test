@@ -25,10 +25,10 @@ public class UserTrafficSimulation extends Simulation {
             .contentTypeHeader("application/json");
 
     private OpenInjectionStep.RampRate.RampRateOpenInjectionStep postEndpointInjectionProfile() {
-        int totalDesiredUserCount = 200;
-        double userRampUpPerInterval = 50;
-        double rampUpIntervalSeconds = 30;
-        int totalRampUptimeSeconds = 120;
+        int totalDesiredUserCount = 100;
+        double userRampUpPerInterval = 10;
+        double rampUpIntervalSeconds = 10;
+        int totalRampUptimeSeconds = 100;
         int steadyStateDurationSeconds = 600;
 
         return rampUsersPerSec(userRampUpPerInterval / (rampUpIntervalSeconds / 60)).to(totalDesiredUserCount)
@@ -48,7 +48,7 @@ public class UserTrafficSimulation extends Simulation {
                         String shippingMethod = shippingMethods.get(ThreadLocalRandom.current().nextInt(shippingMethods.size()));
 
                         int setSize = ThreadLocalRandom.current().nextInt(1, 6);
-                        String productIdsJsonArray = LongStream.generate(() -> ThreadLocalRandom.current().nextLong(1, 10001))
+                        String productIdsJsonArray = LongStream.generate(() -> ThreadLocalRandom.current().nextLong(1, 100001))
                                 .distinct()
                                 .limit(setSize)
                                 .mapToObj(Long::toString)
