@@ -20,10 +20,6 @@ public class UserTrafficSimulation extends Simulation {
            .contentTypeHeader("application/json");
 
    ScenarioBuilder scn = scenario("User Traffic Simulation")
-           .exec(http("Get all products")
-                   .get("/api/products")
-                   .check(status().is(200)))
-           .pause(5)
            .exec(http("Create new order")
                    .post("/api/orders")
                    .body(StringBody(session -> {
@@ -32,7 +28,7 @@ public class UserTrafficSimulation extends Simulation {
                        String shippingMethod = shippingMethods.get(ThreadLocalRandom.current().nextInt(shippingMethods.size()));
 
                        int setSize = ThreadLocalRandom.current().nextInt(1, 6);
-                       String productIdsJsonArray = LongStream.generate(() -> ThreadLocalRandom.current().nextLong(1, 10001))
+                       String productIdsJsonArray = LongStream.generate(() -> ThreadLocalRandom.current().nextLong(1, 100001))
                                .distinct()
                                .limit(setSize)
                                .mapToObj(Long::toString)
